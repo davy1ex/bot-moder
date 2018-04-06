@@ -79,7 +79,7 @@ if __name__ == '__main__':
         response = get_msg(bot)
         if response != None:
             body = response["items"][0]["body"]
-            if "кик" in response["items"][0]["body"].lower():
+            if "!кик" in response["items"][0]["body"].lower():
                 chat_id = response["items"][0]["chat_id"]
                 if str(response["items"][0]["user_id"]) in moderators:
                     body = body.split(" ")
@@ -96,5 +96,5 @@ if __name__ == '__main__':
                 print(moderators)
             elif body == "!помощь":
                 chat_id = response["items"][0]["chat_id"]
-                send_msg(chat_id, text="""кикнуть проказника(цу) - \"кик Иван Пупкин\\\кик 123456789\""
-                            \nдобавить нового модера - \"добавить Иван Пупкин\\добавить 123456789\"""")
+                send_msg(chat_id, text="""кикнуть проказника(цу) - \"!кик Иван Пупкин\\\!кик 123456789\""
+                            \nдобавить нового модера - \"!добавить Иван Пупкин\\!добавить 123456789\"""")
