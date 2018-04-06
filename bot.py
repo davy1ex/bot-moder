@@ -13,7 +13,8 @@ else:
     print("please login")
 
 # списко айди тех, кто может карать банами
-moderators = ["415754216"]
+# записывать также в кавычках и через запутяю
+moderators = ["123456789"]
 
 
 def send_msg(chat_id, text, forward_messages = None):
