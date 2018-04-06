@@ -79,8 +79,9 @@ if __name__ == '__main__':
         response = get_msg(bot)
         if response != None:
             body = response["items"][0]["body"]
+            chat_id = response["items"][0]["chat_id"]
+            forward_message = response["items"][0]["id"]
             if "!кик" in response["items"][0]["body"].lower():
-                chat_id = response["items"][0]["chat_id"]
                 if str(response["items"][0]["user_id"]) in moderators:
                     body = body.split(" ")
                     if len(body) >= 3:
@@ -88,13 +89,16 @@ if __name__ == '__main__':
                     elif len(body) == 2:
                         kick(id = body[1], chat_id = chat_id)
                 else:
-                    send_msg(chat_id, text = "У тебя нет прав на это")
+                    send_msg(chat_id, text = "У тебя нет прав на это", forward_messages = forward_message)
             elif "добавить" in body:
-                body = body.split(" ")
-                chat_id = response["items"][0]["chat_id"]
-                add_new_moder(body = body, chat_id = chat_id)
-                print(moderators)
+                if str(response["items"][0]["user_id"]) in moderators:
+                    body = body.split(" ")
+                    chat_id = response["items"][0]["chat_id"]
+                    add_new_moder(body = body, chat_id = chat_id)
+                    print(moderators)
+                else:
+                    send_msg(chat_id, text="У тебя нет прав на это", forward_messages= forward_message)
             elif body == "!помощь":
                 chat_id = response["items"][0]["chat_id"]
                 send_msg(chat_id, text="""кикнуть проказника(цу) - \"!кик Иван Пупкин\\\!кик 123456789\""
-                            \nдобавить нового модера - \"!добавить Иван Пупкин\\!добавить 123456789\"""")
+                            \nдобавить нового модера - \"!добавить Иван Пупкин\\!добавить 123456789\"""", forward_messages = forward_message)
