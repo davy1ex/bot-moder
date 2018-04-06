@@ -94,3 +94,7 @@ if __name__ == '__main__':
                 chat_id = response["items"][0]["chat_id"]
                 add_new_moder(body = body, chat_id = chat_id)
                 print(moderators)
+            elif body == "!помощь":
+                chat_id = response["items"][0]["chat_id"]
+                send_msg(chat_id, text="""кикнуть проказника(цу) - \"кик Иван Пупкин\\\кик 123456789\""
+                            \nдобавить нового модера - \"добавить Иван Пупкин\\добавить 123456789\"""")
