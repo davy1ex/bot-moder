@@ -13,8 +13,7 @@ else:
     print("please login")
 
 # списко айди тех, кто может карать банами
-# записывать также в кавычках и через запутяю
-moderators = ["123456789"]
+moderators = ["415754216"]
 
 
 def send_msg(chat_id, text, forward_messages = None):
@@ -66,19 +65,32 @@ def kick(chat_id, first_name = None, last_name =  None, id = None):
         bot.method("messages.removeChatUser", {"chat_id": chat_id,
                                                "user_id": id})
 
+def add_new_moder(body, chat_id):
+    if len(body) > 2:
+        moderators.append(str(get_user_id(first_name= body[1], last_name= body[2], chat_id = chat_id)))
+
+    elif len(body) == 2:
+            moderators.append(body[1])
+
+
 # главная часть кода (да, я горазд писать кривые (но рабочие) алгоримты
 if __name__ == '__main__':
     while True:
         response = get_msg(bot)
         if response != None:
+            body = response["items"][0]["body"]
             if "кик" in response["items"][0]["body"].lower():
                 chat_id = response["items"][0]["chat_id"]
                 if str(response["items"][0]["user_id"]) in moderators:
-                    body = response["items"][0]["body"]
-                    body = body.split(' ')
+                    body = body.split(" ")
                     if len(body) >= 3:
                         kick(first_name= body[1], last_name= body[2], chat_id = chat_id)
                     elif len(body) == 2:
                         kick(id = body[1], chat_id = chat_id)
                 else:
                     send_msg(chat_id, text = "У тебя нет прав на это")
+            elif "добавить" in body:
+                body = body.split(" ")
+                chat_id = response["items"][0]["chat_id"]
+                add_new_moder(body = body, chat_id = chat_id)
+                print(moderators)
