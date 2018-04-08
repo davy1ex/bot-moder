@@ -67,15 +67,17 @@ def kick(chat_id, first_name = None, last_name =  None, id = None):
                                                "user_id": id})
 
 def add_new_moder(body, chat_id):
+    """добавляет нового модера"""
     if len(body) > 2:
         moderators.append(str(get_user_id(first_name= body[1], last_name= body[2], chat_id = chat_id)))
         open("moderators.txt", "w").write(str(moderators))
 
     elif len(body) == 2:
             moderators.append(body[1])
+            open("moderators.txt", "w").write(str(moderators))
 
 
-# главная часть кода (да, я горазд писать кривые (но рабочие) алгоримты
+# главная часть кода (да, я горазд писать кривые (но рабочие) алгоритмы)
 if __name__ == '__main__':
     while True:
         response = get_msg(bot)
