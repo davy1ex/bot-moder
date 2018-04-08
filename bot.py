@@ -71,13 +71,23 @@ def add_new_moder(body, chat_id):
     if len(body) > 2:
         moderators.append(str(get_user_id(first_name= body[1], last_name= body[2], chat_id = chat_id)))
         open("moderators.txt", "w").write(str(moderators))
+        send_msg(chat_id, text="Добавил", forward_messages=forward_message)
 
     elif len(body) == 2:
             moderators.append(body[1])
             open("moderators.txt", "w").write(str(moderators))
+            send_msg(chat_id, text="Добавил", forward_messages=forward_message)
 
 
-# главная часть кода (да, я горазд писать кривые (но рабочие) алгоритмы)
+def send_moder_list(chat_id, forward_message):
+    text = ''
+    for user in users_list(chat_id):
+        print(user)
+        if str(user["uid"]) in moderators:
+            text += user["first_name"] + ' ' + user["last_name"] + '\n'
+    send_msg(chat_id, text = text, forward_messages = forward_message)
+
+# главная часть кода (да, я горазд писать кривые (но рабочие) алгоримты
 if __name__ == '__main__':
     while True:
         response = get_msg(bot)
@@ -109,3 +119,6 @@ if __name__ == '__main__':
                     chat_id = response["items"][0]["chat_id"]
                     send_msg(chat_id, text="""кикнуть проказника(цу) - \"!кик Иван Пупкин\\\!кик 123456789\""
                                 \nдобавить нового модера - \"!добавить Иван Пупкин\\!добавить 123456789\"""", forward_messages = forward_message)
+
+                elif body == "!модеры":
+                    send_moder_list(chat_id, forward_message = forward_message)
