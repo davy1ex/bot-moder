@@ -108,7 +108,7 @@ def add_new_moder(body, chat_id, forward_messages):
 
 def remove_moder(chat_id, body, forward_messages):
     if len(body) > 2:
-        print(moderators)
+        #print(moderators)
         for user in users_list(chat_id):
             if similar(original= str(user["first_name"] + " " + user["last_name"]), inp=str(body[1] + " " + body[2])):
                 # print("гг")
