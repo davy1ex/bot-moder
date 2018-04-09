@@ -121,7 +121,8 @@ if __name__ == '__main__':
                 elif body == "!помощь":
                     chat_id = response["items"][0]["chat_id"]
                     send_msg(chat_id, text="""кикнуть проказника(цу) - \"!кик Иван Пупкин\\\!кик 123456789\""
-                                \nдобавить нового модера - \"!добавить Иван Пупкин\\!добавить 123456789\"""", forward_messages = forward_message)
+                                \nдобавить нового модера - \"!добавить Иван Пупкин\\!добавить 123456789\"
+                                \nузнать список модеров - \"!модеры\"""", forward_messages = forward_message)
 
                 elif body == "!модеры":
                     send_moder_list(chat_id, forward_message = forward_message)
